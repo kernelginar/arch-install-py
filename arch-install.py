@@ -26,8 +26,11 @@ ask_disk = input("Seçiniz: ")
 if ask_disk == '1':
     os.system("clear")
     os.system("lsblk")
+
     print (" ")
+
     disk_selection = input("/dev/???: ")
+
     print (disk_selection)
 
     print ('''300M EFI System
@@ -42,31 +45,52 @@ Kalan alan Linux filesystem
     os.system("clear")
     os.system("mkdir -p /mnt/boot/efi")
     os.system("lsblk")
+
     print (" ")
+
+    print ('''Disklerini biçimlendireceğiz.
+Sırasıyla boot için oluşturduğun diski ve ardından root için oluşturduğun diski gireceksin.''')
+
+    boot_disk_format = input("/dev/???: ")
+    os.system("mkfs.fat -F32 "f"{boot_disk_format}")
+    root_disk_format = input("/dev/???: ")
+    os.system("mkfs.ext4 "f"{root_disk_format}")
+
     print ('''Şimdi diskleri bağlaman gerek. Bunun için sana yardımcı olacağım.
 İlk önce /mnt yani root bölümünü bağlayalım. Üstüne Boot bölümünü. Ne dersin?
 Korkma sana yardımcı olacağım. Bana root kısmı için ayırdığın diski söyle yeter.''')
+
     root_disk = input("/dev/???: ")
     os.system("mount "f"{root_disk} " "/mnt")
+
     print ('''Şimdi root bölümünü bağladık. Sıra boot bölümünde. Bana boot bölümünü söyle.''')
+
     boot_disk = input("/dev???: ")
     os.system("mount "f"{boot_disk} " "/mnt/boot/efi")
+
     print ('''Tamamdır! Boot bölümünü de bağladık. Şimdi eğer swap alanı oluşturduysan bana söyle. Hemen etkinleştireyim.
 [1] Swap alanı oluşturdum.
 [2] Swap alanı oluşturmadım.''')
+
     swap_ask = input("Seçiniz: ")
     if swap_ask == '1':
         os.system("clear")
         os.system("lsblk")
+
         swap_disk = input("/dev/???: ")
         os.system("mkswap "f"{swap_disk}")
         os.system("swapon "f"{swap_disk}")
+
         os.system("clear")
         os.system("lsblk")
+
         print ("İşlem tamamlandı.")
+
     elif swap_ask == '2':
         os.system("clear")
+
         print ("Şimdi biraz rahatla. Sistem dosyalarını kuracağım.")
+
         time.sleep(4)
-        os.system("pactsrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware git nano neovim vim")
+        os.system("pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware git nano neovim vim")
         os.system("genfstab -U /mnt >> /mnt/etc/fstab")
