@@ -43,8 +43,20 @@ Kalan alan Linux filesystem
     os.system("cfdisk "f"{disk_selection}")
 
     os.system("clear")
-    os.system("mkdir -p /mnt/boot/efi")
     os.system("lsblk")
+
+    print (" ")
+    print ('''Şimdi bash oturumu açılacak. Oraya
+
+mkdir -p /mnt/boot/efi
+
+komutunu gir ve sonra
+
+exit
+
+komutunu gir.''')
+
+    os.system("/bin/bash")
 
     print (" ")
 
@@ -131,8 +143,18 @@ Kalan alan Linux filesystem
     os.system("cfdisk "f"{disk_selection}")
 
     os.system("clear")
-    os.system("mkdir -p /mnt/boot/efi")
     os.system("lsblk")
+
+    print (" ")
+    print ('''Şimdi bash oturumu açılacak. Oraya
+
+mkdir -p /mnt/boot/efi
+
+komutunu gir ve sonra
+
+exit komutunu gir.''')
+
+    os.system("/bin/bash")
 
     print (" ")
 
