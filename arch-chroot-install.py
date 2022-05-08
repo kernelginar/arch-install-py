@@ -1,3 +1,5 @@
+#!/bin/sh
+
 import os
 import sys
 import time
@@ -28,8 +30,9 @@ print ("Bu da tamam. Şimdi localini ayarlayacağım. Bu kurulum Türkçe olduğ
 
 time.sleep(2)
 
-os.system("echo "tr_TR.UTF-8" >> /etc/locale.gen")
-os.system("echo "LANG=tr_TR.UTF-8" >> /etc/locale.conf")
+os.system("echo tr_TR.UTF-8 >> /etc/locale.gen")
+os.system("locale-gen")
+os.system("echo LANG=tr_TR.UTF-8 >> /etc/locale.conf")
 
 print ("Locali ayarladım.")
 
@@ -43,9 +46,9 @@ print (" ")
 hostname = input("Bilgisayarımın adı: ")
 os.system("echo "f"{hostname}" ">> /etc/hostname")
 
-os.system("echo "127.0.0.1 localhost"")
-os.system("echo "::1 localhost"")
-os.system("echo "127.0.1.1 "" f"{hostname}" "localdomain"f"{hostname}")
+os.system("echo 127.0.0.1 localhost >> /etc/hosts")
+os.system("echo ::1 localhost >> /etc/hosts")
+os.system("echo 127.0.1.1 " f"{hostname}" ".localdomain "f"{hostname}")
 
 os.system("clear")
 
@@ -85,12 +88,12 @@ os.system("pacman -S xf86-input-synaptics xf86-input-libinput")
 
 os.system("clear")
 
-print ('''Bu da tamamlandı. Şimdi multilib reposunu etkinleştirmen gerek. 
+print ('''Bu da tamamlandı. Şimdi multilib reposunu etkinleştirmen gerek.
 
 [multilib]
 Include = /etc/pacman.d/mirrorlist
 
-Bunun başındaki # işaretini kaldıracaksın. 
+Bunun başındaki # işaretini kaldıracaksın.
 
 Daha sonra istersen üst taraflarda #Color ibaresi var. Onun başındaki # işaretini de kaldır. Daha güzel gözüküyor :D
 
@@ -123,8 +126,9 @@ os.system("passwd "f"{username}")
 
 os.system("clear")
 
-print ('''Az kaldı. Şimdi sudoers dosyasını düzenleyeceğiz. 
-½wheel ALL=(ALL) ALL satırının başındaki # işareti kaldırıyorsun. Sonra en alt satıra gelip
+print ('''Az kaldı. Şimdi sudoers dosyasını düzenleyeceğiz.
+
+½wheel ALL=(ALL:ALL) ALL satırının başındaki # işareti kaldırıyorsun. Sonra en alt satıra gelip
 
 Defaults rootpw
 
