@@ -5,10 +5,8 @@ import sys
 import time
 
 os.system("clear")
-
 print ("Kurulum 3 saniye icinde basliyor!")
 time.sleep(3)
-
 os.system("clear")
 
 os.system("lsblk")
@@ -18,7 +16,6 @@ os.system("cfdisk " f"{disk_selection}")
 
 os.system("clear")
 os.system("lsblk")
-
 root_partition = input("Root bolumunu secin, /dev/???: ")
 os.system("mkfs.ext4 " f"{root_partition}")
 os.system("mount " f"{root_partition} " "/mnt")
