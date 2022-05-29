@@ -16,6 +16,9 @@ print (" ")
 disk_selection = input("Diskinizi secin, /dev/???: ")
 os.system("cfdisk " f"{disk_selection}")
 
+os.system("clear")
+os.system("lsblk")
+
 root_partition = input("Root bolumunu secin, /dev/???: ")
 os.system("mkfs.ext4 " f"{root_partition}")
 os.system("mount " f"{root_partition} " "/mnt")
