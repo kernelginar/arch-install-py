@@ -8,6 +8,7 @@ disk_selection = input("/dev/???: ")
 os.system("cfdisk " f"{disk_selection}")
 
 os.system("clear")
+os.system("lsblk")
 root_partition = input("/dev/???: ")
 os.system("mkfs.ext4 " f"{root_partition}")
 os.system("mount " f"{root_partition} " "/mnt")
