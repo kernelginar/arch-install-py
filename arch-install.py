@@ -23,6 +23,6 @@ os.system("clear")
 
 os.system("pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware git nano")
 os.system("genfstab -U /mnt >> /mnt/etc/fstab")
-os.system("mv $(pwd)/chroot.py /mnt")
+os.system("cp $(pwd)/chroot.py /mnt")
 os.system("arch-chroot /mnt /bin/bash")
 os.system("python unmount.py")
