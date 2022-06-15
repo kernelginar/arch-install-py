@@ -17,7 +17,7 @@ print(" ")
 
 boot_partition = input("Boot partition with /dev, /dev/???: ")
 os.system("mkdir -p /mnt/boot/efi")
-os.system("mkfs.fat -F32 " f"{boot_partition} " "/mnt/boot/efi")
+os.system("mkfs.fat -F32 " f"{boot_partition}")
 os.system("mount " f"{boot_partition} " "/mnt/boot/efi")
 os.system("clear")
 
