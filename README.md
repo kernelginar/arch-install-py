@@ -1,1 +1,1 @@
-Arch Linux install Python script.
+Arch Linux installation Python script.
