@@ -1,5 +1,4 @@
 import os
-import time
 
 #locale
 locale = input("Select locale [en/tr]: ")
