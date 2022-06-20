@@ -1,4 +1,9 @@
+#!/usr/bin/env python
+
 import os
+import time
+
+os.system("clear")
 
 #locale
 locale = input("Select locale [en/tr]: ")
@@ -39,6 +44,9 @@ os.system("clear")
 #packages
 os.system("pacman -Sy networkmanager")
 os.system("systemctl enable NetworkManager")
+time.sleep(2)
+os.system("clear")
+
 os.system("pacman -S xf86-input-synaptics xf86-input-libinput")
 os.system("pacman -S ntfs-3g")
 
@@ -46,12 +54,13 @@ os.system("pacman -S ntfs-3g")
 os.system("pacman -S grub efibootmgr os-prober")
 os.system("grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=Linux")
 os.system("grub-mkconfig -o /boot/grub/grub.cfg")
+time.sleep(3)
 os.system("clear")
 
 #Add user
 username = input("Username: ")
-os.system("useradd -m -g users -G wheel,storage,power,audio,video -s /bin/bash " f"{username}")
+os.system("useradd -m -g users -G wheel,storage,power,audio,video,network -s /bin/bash " f"{username}")
 print("Normal user password: ")
 os.system("passwd " f"{username}")
 os.system("clear")
-os.system("exit")
+os.system("EDITOR=nano visudo")
