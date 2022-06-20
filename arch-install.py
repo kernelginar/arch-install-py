@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 
 os.system("clear")
@@ -21,8 +23,8 @@ os.system("mkfs.fat -F32 " f"{boot_partition}")
 os.system("mount " f"{boot_partition} " "/mnt/boot/efi")
 os.system("clear")
 
-os.system("pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware git nano")
+os.system("pacstrap /mnt base base-devel linux linux-headers linux-firmware git nano")
 os.system("genfstab -U /mnt >> /mnt/etc/fstab")
 os.system("cp $(pwd)/chroot.py /mnt")
 os.system("arch-chroot /mnt /bin/bash")
-os.system("python unmount.py")
+os.system("rm -rf /mnt/chroot.py")
