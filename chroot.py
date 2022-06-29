@@ -13,8 +13,6 @@ if locale == 'en':
     os.system("clear")
     os.system("touch /etc/locale.conf")
     os.system("echo 'LANG=en_US.UTF-8' >> /etc/locale.conf")
-    os.system("touch /etc/vconsole.conf")
-    os.system("echo 'KEYMAP=trq' >> /etc/vconsole.conf")
     os.system("clear")
 elif locale == 'tr':
     os.system("echo 'tr_TR.UTF-8' >> /etc/locale.gen")
@@ -32,7 +30,7 @@ hostname = input("Hostname: ")
 os.system("echo " f"{hostname} " ">> /etc/hostname")
 
 os.system("echo '127.0.0.1      localhost' >> /etc/hosts")
-os.system("echo '::1        localhost' >> /etc/hosts")
+os.system("echo '::1            localhost' >> /etc/hosts")
 
 os.system("clear")
 
@@ -57,7 +55,7 @@ os.system("grub-mkconfig -o /boot/grub/grub.cfg")
 time.sleep(4)
 os.system("clear")
 
-#Add user
+#useradd
 username = input("Username: ")
 os.system("useradd -m -g users -G wheel,storage,power,audio,video,network -s /bin/bash " f"{username}")
 print("Normal user password: ")
