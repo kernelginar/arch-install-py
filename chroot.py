@@ -8,14 +8,14 @@ os.system("clear")
 #locale
 locale = input("Select locale [en/tr]: ")
 if locale == 'en':
-    os.system("echo 'en_US.UTF-8' >> /etc/locale.gen")
+    os.system("echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen")
     os.system("locale-gen")
     os.system("clear")
     os.system("touch /etc/locale.conf")
     os.system("echo 'LANG=en_US.UTF-8' >> /etc/locale.conf")
     os.system("clear")
 elif locale == 'tr':
-    os.system("echo 'tr_TR.UTF-8' >> /etc/locale.gen")
+    os.system("echo 'tr_TR.UTF-8 UTF-8' >> /etc/locale.gen")
     os.system("locale-gen")
     os.system("clear")
     os.system("touch /etc/locale.conf")
@@ -29,8 +29,8 @@ elif locale == 'tr':
 hostname = input("Hostname: ")
 os.system("echo " f"{hostname} " ">> /etc/hostname")
 
-os.system("echo '127.0.0.1      localhost' >> /etc/hosts")
-os.system("echo '::1            localhost' >> /etc/hosts")
+os.system("echo '127.0.0.1       localhost' >> /etc/hosts")
+os.system("echo '::1             localhost' >> /etc/hosts")
 
 os.system("clear")
 
@@ -45,14 +45,19 @@ os.system("systemctl enable NetworkManager")
 time.sleep(2)
 os.system("clear")
 
-os.system("pacman -S xf86-input-synaptics xf86-input-libinput")
+os.system("pacman -S xf86-input-libinput")
+time.sleep(2)
+os.system("clear")
+
 os.system("pacman -S ntfs-3g")
+time.sleep(2)
+os.system("clear")
 
 #grub
 os.system("pacman -S grub efibootmgr os-prober")
 os.system("grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=Linux")
 os.system("grub-mkconfig -o /boot/grub/grub.cfg")
-time.sleep(4)
+time.sleep(3)
 os.system("clear")
 
 #useradd
