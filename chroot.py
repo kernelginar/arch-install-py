@@ -1,9 +1,14 @@
-#!/usr/bin/env python
-
+#!/usr/bin/env python3
 import os
 import time
 
 os.system("clear")
+
+print("Example: Europe/Istanbul, Europe/Zurich, America/New_York")
+timezone = input("Timezone: ")
+os.system("ln -sf /usr/share/zoneinfo" f"{timezone}" "/etc/localtime")
+os.system("timedatectl set-ntp true")
+os.system("hwclock --systohc")
 
 #locale
 locale = input("Select locale [en/tr]: ")
@@ -42,28 +47,25 @@ os.system("clear")
 #packages
 os.system("pacman -Sy networkmanager")
 os.system("systemctl enable NetworkManager")
-time.sleep(2)
 os.system("clear")
 
 os.system("pacman -S xf86-input-libinput")
-time.sleep(2)
 os.system("clear")
 
 os.system("pacman -S ntfs-3g")
-time.sleep(2)
 os.system("clear")
 
 #grub
 os.system("pacman -S grub efibootmgr os-prober")
-os.system("grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=Linux")
+os.system("grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id='Arch Linux'")
 os.system("grub-mkconfig -o /boot/grub/grub.cfg")
-time.sleep(3)
+time.sleep(2)
 os.system("clear")
 
 #useradd
 username = input("Username: ")
 os.system("useradd -m -g users -G wheel,storage,power,audio,video,network -s /bin/bash " f"{username}")
-print("Normal user password: ")
+print(username, "password")
 os.system("passwd " f"{username}")
-os.system("EDITOR=nano visudo")
+os.system("visudo")
 os.system("clear")
