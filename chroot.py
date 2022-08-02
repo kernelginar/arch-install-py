@@ -10,6 +10,8 @@ os.system("ln -sf /usr/share/zoneinfo/" f"{timezone} " "/etc/localtime")
 os.system("timedatectl set-ntp true")
 os.system("hwclock --systohc")
 
+os.system("clear")
+
 #locale
 locale = input("Select locale [en/tr]: ")
 if locale == 'en':
