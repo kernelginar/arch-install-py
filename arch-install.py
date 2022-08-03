@@ -24,6 +24,7 @@ os.system("clear")
 os.system("pacstrap /mnt base base-devel linux linux-headers linux-firmware git nano")
 os.system("genfstab -U /mnt > /mnt/etc/fstab")
 os.system("mount " f"{boot_partition} " "/mnt/boot/efi")
+
 os.system("cp $(pwd)/chroot.py /mnt")
 os.system("arch-chroot /mnt /bin/bash")
 os.system("rm -rf /mnt/chroot.py")
