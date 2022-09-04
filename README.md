@@ -1,8 +1,12 @@
-# Usage arch-install-py
+# Usage arch-install.py
 
 ```shell
-cd ~ && git clone https://github.com/abdullah-rgb/arch-install-py
-cd arch-install-py
+sudo su
+
+git clone https://github.com/abdullah-rgb/arch-install-py ~/arch-install-py
+
+cd ~/arch-install-py
+
 python arch-install.py
 ```
 
