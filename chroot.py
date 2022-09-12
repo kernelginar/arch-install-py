@@ -7,7 +7,6 @@ os.system("clear")
 print("Example: Europe/Istanbul, Europe/Zurich, America/New_York")
 timezone = input("Timezone: ")
 os.system("ln -sf /usr/share/zoneinfo/" f"{timezone} " "/etc/localtime")
-os.system("timedatectl set-ntp true")
 os.system("hwclock --systohc")
 
 os.system("clear")
