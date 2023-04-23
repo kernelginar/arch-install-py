@@ -1,9 +1,9 @@
 # Usage arch-install.py
 
-```shell
+```bash
 sudo su
 
-git clone https://github.com/abdullah-rgb/arch-install-py ~/arch-install-py
+git clone https://github.com/kernelginar/arch-install-py ~/arch-install-py
 
 cd ~/arch-install-py
 
@@ -12,6 +12,6 @@ cd ~/arch-install-py
 
 # Usage chroot.py
 
-```shell
+```bash
 ./chroot
 ```
