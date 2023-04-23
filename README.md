@@ -1,4 +1,4 @@
-# Usage arch-install.py
+# Usage archinstall
 
 ```bash
 sudo su
@@ -10,7 +10,7 @@ cd ~/arch-install-py
 ./archinstall
 ```
 
-# Usage chroot.py
+# Usage chroot
 
 ```bash
 ./chroot
