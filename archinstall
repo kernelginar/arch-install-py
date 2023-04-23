@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+from os import system, chdir
+import readline
+import time
+
+# Editor: nano, vi, vim, neovim etc...
+EDITOR="nano"
+
+# Kernels: linux, linux-lts, linux-zen
+KERNEL="linux"
+
+system("clear")
+
+# edit /etc/pacman.conf
+system(f"{EDITOR} /etc/pacman.conf")
+system("clear")
+
+# Update archlinux-keyring package
+system("pacman -Sy archlinux-keyring")
+system("pacman-key --init")
+system("pacman-key --populate archlinux")
+
+# Disk configuration
+system("clear")
+system("lsblk")
+print(" ")
+DISK = input('''Select disk (Example: vda, sda, nvme0n1)
+> ''')
+system(f"cfdisk /dev/{DISK}")
+
+system("clear")
+
+# Format disk label
+system("lsblk")
+print(" ")
+
+ROOT_PARTITION = input('''Select Root partition (Example: vda1, sda1, nvme0n1p1)
+> ''')
+system(f"mkfs.ext4 /dev/{ROOT_PARTITION}")
+system(f"mount /dev/{ROOT_PARTITION} /mnt")
+time.sleep(2)
+
+system("clear")
+system("lsblk")
+print(" ")
+
+BOOT_PARTITION = input('''Select Boot partition (Example: vda1, sda1, nvme0n1p1)
+> ''')
+system(f"mkfs.fat -F32 /dev/{BOOT_PARTITION}")
+system(f"mkdir -p /mnt/boot/efi")
+
+system("clear")
+
+# Install base Arch Linux packagess
+if EDITOR == 'nvim':
+    system(f"pacstrap -i /mnt base base-devel {KERNEL} {KERNEL}-headers linux-firmware git neovim")
+else:
+    system(f"pacstrap -i /mnt base base-devel {KERNEL} {KERNEL}-headers linux-firmware git {EDITOR}")
+time.sleep(2)
+
+system("clear")
+
+# Create fstab file
+system("genfstab -U /mnt > /mnt/etc/fstab")
+system(f"mount /dev/{BOOT_PARTITION} /mnt/boot/efi")
+system("clear")
+
+# Arch Install script backup
+system("mkdir -p /mnt/root/arch-install-backup")
+system("cp -rv $(pwd)/archinstall /mnt/root/arch-install-backup")
+system("cp -rv $(pwd)/chroot /mnt/root/arch-install-backup")
+chdir("/mnt")
+system("ln -sv root/arch-install-backup/chroot ./chroot")
+print("Linked root/arch-install-backup/chroot to /mnt/chroot")
+time.sleep(1)
+
+system("clear")
+
+# Chroot Environment
+system("arch-chroot /mnt /bin/bash")
+system("rm -rfv /mnt/chroot")

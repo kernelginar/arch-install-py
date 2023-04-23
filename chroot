@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+from os import system
+import time
+import readline
+
+# Editor: nano, vi, vim, neovim etc...
+EDITOR="nano"
+
+# Edit /etc/pacman.conf file
+system(f"{EDITOR} /etc/pacman.conf")
+
+system("clear")
+
+# Timezone
+TIME_ZONE = input('''Timezone (Example: Europe/Istanbul, America/New_York, Europe/Zurich
+> ''')
+system(f"ln -sf /usr/share/zoneinfo/{TIME_ZONE} /etc/localtime")
+system("hwclock --systohc")
+
+system("clear")
+
+LOCALE = input('''Select locale [en/tr]
+> ''')
+
+if LOCALE == 'en':
+    system(f'''echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen''')
+    system("locale-gen")
+    system("touch /etc/locale.conf")
+    system(f'''echo "LANG=en_US.UTF-8" >> /etc/locale.conf''')
+    system("touch /etc/vconsole.conf")
+    system(f'''echo "KEYMAP=us" >> /etc/vconsole.conf''')
+elif LOCALE == 'tr':
+    system(f'''echo "tr_TR.UTF-8 UTF-8" >> /etc/locale.gen''')
+    system("locale-gen")
+    system("touch /etc/locale.conf")
+    system(f'''echo "LANG=tr_TR.UTF-8" >> /etc/locale.conf''')
+    system("touch /etc/vconsole.conf")
+    system(f'''echo "KEYMAP=trq" >> /etc/vconsole.conf''')
+
+system("clear")
+
+# Hosts, hostname
+HOSTNAME = input('''Hostname
+> ''')
+
+system(f'''echo {HOSTNAME} >> /etc/hostname''')
+HOSTS = f'''127.0.0.1    localhost
+::1     localhost
+127.0.1.1   {HOSTNAME}.localdomain      {HOSTNAME}'''
+
+system(f'''echo {HOSTS} >> /etc/hosts''')
+
+system("clear")
+
+# Root password
+print("Root password")
+system("passwd root")
+time.sleep(2)
+
+system("clear")
+
+# NetworkManager
+system("pacman -Sy networkmanager")
+system("systemctl enable NetworkManager")
+time.sleep(2)
+
+system("clear")
+
+# Touchpad support
+system("pacman -S xf86-input-libinput")
+time.sleep(2)
+
+system("clear")
+
+# NTFS Filesystem support
+system("pacman -S ntfs-3g")
+time.sleep(2)
+
+system("clear")
+
+# GRUB
+system("pacman -S grub efibootmgr os-prober")
+time.sleep(2)
+
+system("clear")
+
+system('''grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Arch Linux"''')
+time.sleep(2)
+
+system("clear")
+
+system("grub-mkconfig -o /boot/grub/grub.cfg")
+time.sleep(2)
+
+system("clear")
+
+# Add user
+USERNAME = input('''Username
+> ''')
+system(f"useradd -m -g users -G wheel,storage,power,audio,video,network -s /bin/bash {USERNAME}")
+system("clear")
+
+print(f'''{USERNAME} password''')
+system(f"passwd {USERNAME}")
+time.sleep(2)
+
+system("clear")
+
+# sudo privileges
+system(f"EDITOR={EDITOR} visudo")
+system("clear")
+
+ARCH_INSTALL_BACKUP = input('''Do you want to backup your Arch Install Script? [y/n]
+> ''')
+
+if ARCH_INSTALL_BACKUP == "y" or ARCH_INSTALL_BACKUP == "Y":
+    print("Arch Install script is already saved in '/root/arch-install-backup' folder. No action was taken.")
+elif ARCH_INSTALL_BACKUP == "n" or ARCH_INSTALL_BACKUP == "N":
+    system("rm -rfv /root/arch-install-backup")
+    print("Arch Install script removed from '/root/arch-install-backup' folder.")
