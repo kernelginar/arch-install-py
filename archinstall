@@ -53,9 +53,9 @@ system("clear")
 
 # Install base Arch Linux packagess
 if EDITOR == 'nvim':
-    system(f"pacstrap -i /mnt base base-devel {KERNEL} {KERNEL}-headers linux-firmware git neovim")
+    system(f"pacstrap -i /mnt base base-devel {KERNEL} {KERNEL}-headers linux-firmware git python python-pip neovim")
 else:
-    system(f"pacstrap -i /mnt base base-devel {KERNEL} {KERNEL}-headers linux-firmware git {EDITOR}")
+    system(f"pacstrap -i /mnt base base-devel {KERNEL} {KERNEL}-headers linux-firmware git python python-pip {EDITOR}")
 time.sleep(2)
 
 system("clear")
